@@ -156,8 +156,7 @@
                 Grid.Column="2" 
                 Style="{StaticResource gameSquares}">
             <StackPanel>
-                <Image Height="80" Margin="10" Source=".\Resources\othello.png"/>
-                <Image Source=".\Resources\blackpip.png"/>
+                <Ellipse Width="17" Height="17" Fill="White"/>
             </StackPanel>
         </Button>
         <Button x:Name="A5"
