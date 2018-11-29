@@ -104,5 +104,11 @@
   <ItemGroup>
     <Resource Include="Resources\othello.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\blackpip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\whitepip.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
