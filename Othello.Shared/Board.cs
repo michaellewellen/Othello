@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Othello.Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,13 +11,8 @@ namespace Othello
     {
         public Board()
         {
-
+            Square[] board = new Square[64];
         }
-    
-    
-        private int[,] squares;
-        private int blackCount;
-        private int whiteCount;
     }
 
 

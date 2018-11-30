@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -11,37 +12,43 @@ namespace Othello.Shared.ViewModel
     {
         public OthelloViewModel()
         {
-            CreateOthelloButtons();
-            InitializeBoard();
-        }
-
-
-
-
-
-        // Programatically create the 64 buttons for the Othello Board
-        public void CreateOthelloButtons()
-        {
-            for(int i = 5; i <13; i++)
-            {
-                for(int j=2; j< 10; j++)
-                {
-                    //Button gameButton = new Button();
-                    //gameButton.Content = (i - 5).ToString() + " " + (j - 2).ToString();
-                    //gameButton.Name = "Button" + (i - 5).ToString() + (j - 2).ToString();
-                    //Grid.SetColumn(gameButton, j);
-                    //Grid.SetRow(gameButton, i);
-                    //GameGrid.Children.Add(gameButton);
-                    
-                }
-            }
-
+            moveList = new ObservableCollection<Move>();
+            CreateBoard();
+            
         }
         
-        // Initialize the 64 squares so the center 4 are alternating white and black
-        public void InitializeBoard()
+        private ObservableCollection<Move> moveList;
+        
+        public ObservableCollection<Move> MoveList
         {
+            get { return moveList; }
+            set { SetField(ref moveList, value); }
+        }
+           
 
+
+
+
+        
+        // Initialize the 64 squares so the center 4 are alternating white and black
+        public void CreateBoard()
+        {
+            Square[] board = new Square[64];
+            for (int i = 0; i<64; i++)
+            {
+                board[i] = new Square();
+            }
+
+            board[27].SquareValue = board[36].SquareValue = 1;
+            board[28].SquareValue = board[35].SquareValue = -1;
+            Move turn = new Move("White", "D4");
+            MoveList.Add(turn);
+            turn = new Move("Black", "E4");
+            MoveList.Add(turn);
+            turn = new Move("White", "E5");
+            MoveList.Add(turn);
+            turn = new Move("White", "D5");
+            MoveList.Add(turn);
         }
 
 

@@ -27,8 +27,8 @@ namespace Othello.WPF
 
         private void NewGame(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
-            Application.Current.Shutdown();
+            var vm = new Othello.Shared.ViewModel.OthelloViewModel();
+            vm.CreateBoard();
         }
 
         private void QuitGame(object sender, RoutedEventArgs e)
@@ -37,19 +37,19 @@ namespace Othello.WPF
         }
         private void DisplayStats(object sender, RoutedEventArgs e)
         {
-            System.Windows.Application.Current.Shutdown();
+           
         }
         private void Undo(object sender, RoutedEventArgs e)
         {
-            System.Windows.Application.Current.Shutdown();
+            
         }
         private void Redo(object sender, RoutedEventArgs e)
         {
-            System.Windows.Application.Current.Shutdown();
+          
         }
         private void About(object sender, RoutedEventArgs e)
         {
-            System.Windows.Application.Current.Shutdown();
+            
         }
     }
 }

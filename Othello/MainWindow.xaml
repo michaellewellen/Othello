@@ -170,11 +170,18 @@
             <TextBlock Grid.Row="8" Grid.Column="0" Style="{StaticResource gameText}" Text="8" Foreground="White"/>
 
             <!--Creating buttons/borders for the rest of the game-->
-            <Button x:Name="a1"
+            <Button x:Name="A1"
                 Grid.Row="1" 
                 Grid.Column="1" 
-                Style="{StaticResource gameSquares}"/>
-            <Button x:Name="a2"
+                Command="{Binding squareClick}"
+                CommandParameter="{Binding ElementName=A1, Path=Name}"
+                Background="{Binding square[1].squareColor}"
+                Style="{StaticResource gameSquares}">
+                <StackPanel>
+                    <Image Height="{Binding ElementName=Slider, Path=Value}" Source="{Binding square[1].squareImage}"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="A2"
                 Grid.Row="2" 
                 Grid.Column="1" 
                 Style="{StaticResource gameSquares}"/>
@@ -284,7 +291,7 @@
                 Grid.Column="4" 
                 Style="{StaticResource gameSquares}">
                 <StackPanel>
-                    <Image Height="{Binding ElementName=Slider, Path=Value}" Source=".\Resources\blackpip.png"/>
+                    <Image Height="{Binding ElementName=Slider, Path=Value}" Source=".\resources\Empty.png"/>
                 </StackPanel>
             </Button>
             <Button x:Name="D5"
