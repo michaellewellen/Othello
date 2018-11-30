@@ -7,10 +7,18 @@ namespace Othello.Shared.ViewModel
     public class Move : INotifyPropertyChanged
     {
         public Move() { }
-        public Move(string playerColor, string playerMove)
+        public Move(int moveCount, string playerColor, string playerMove)
         {
+            MoveCount = moveCount;
             PlayerColor = playerColor;
             PlayerMove = playerMove;
+        }
+
+        private int moveCount;
+        public int MoveCount
+        {
+            get { return moveCount; }
+            set { SetField(ref moveCount, value); }
         }
 
         private string playerColor;

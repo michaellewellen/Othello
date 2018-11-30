@@ -41,7 +41,7 @@ namespace Othello.Shared
         // SquareImage changes based on the numerical value of the square.
         public BitmapImage SquareImage
         {
-            get { return SquareImage; }
+            get { return squareImage; }
             set
             {
                 if (SquareValue == -1)

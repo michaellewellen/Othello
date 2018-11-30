@@ -6,52 +6,78 @@
         xmlns:local="clr-namespace:Othello.WPF"
         xmlns:sharedvm="clr-namespace:Othello.Shared.ViewModel;assembly=Othello.Shared"
         mc:Ignorable="d"
-        Title="Othello" Height="750" Width="750" Background="#00AB66">
+        Title="Othello"
+        Height="750"
+        Width="750"
+        Background="#00AB66">
     <Window.DataContext>
-        <sharedvm:OthelloViewModel/>
+        <sharedvm:OthelloViewModel />
     </Window.DataContext>
-    
+
     <!--Styles-->
     <Window.Resources>
-        <Style x:Key="gameText" TargetType="TextBlock">
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Style x:Key="gameText"
+               TargetType="TextBlock">
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+            <Setter Property="HorizontalAlignment"
+                    Value="Center" />
         </Style>
-        <Style x:Key="gameSquares" TargetType="Button">
-            <Setter Property="Background" Value="#00AB66"/>
-            <Setter Property="BorderBrush" Value="Black"/>
-            <Setter Property="BorderThickness" Value=".35"/>
+        <Style x:Key="gameSquares"
+               TargetType="{x:Type Button}">
+            
+            <!--<Setter Property="Background"
+                    Value="#00AB66" />
+            <Setter Property="BorderBrush"
+                    Value="Black" />
+            <Setter Property="BorderThickness"
+                    Value=".35" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderThickness=".3" BorderBrush="Black">
+                            <ContentPresenter />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
             <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="Red"/>
+                <Trigger Property="IsMouseOver"
+                         Value="True">
+                    <Setter Property="Background"
+                            Value="Red" />
                 </Trigger>
-            </Style.Triggers>
+                --><!--<Trigger Property="IsEnabled"
+                         Value="False">
+                    <Setter Property="Foreground"
+                            Value="Blue" />
+                </Trigger>--><!--
+            </Style.Triggers>-->
         </Style>
     </Window.Resources>
-    
+
     <!--1 column for the game, 1 column for the gameplay-->
     <!--10 game rows and 2 header rows-->
     <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="10" />
         </Grid.ColumnDefinitions>
 
         <!--Row 1 ... The menu-->
-        <Menu
-            Grid.ColumnSpan="15"
-            HorizontalAlignment="Left"
-            Background="DarkGray"
-            Foreground="Black">
+        <Menu Grid.ColumnSpan="5"
+              HorizontalAlignment="Left"
+              Background="DarkGray"
+              Foreground="Black">
             <Menu.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VirtualizingStackPanel Orientation="Horizontal" />
@@ -59,27 +85,29 @@
             </Menu.ItemsPanel>
             <MenuItem Header="_Game">
                 <MenuItem Header="_New Game"
-                          Click="NewGame"/>
+                          Click="NewGame" />
                 <MenuItem Header="_Statistics"
-                          Click="DisplayStats"/>
+                          Click="DisplayStats" />
                 <MenuItem Header="_Quit"
-                          Click="QuitGame"/>
+                          Click="QuitGame" />
             </MenuItem>
             <MenuItem Header="_Move">
                 <MenuItem Header="_Undo Move"
-                          Click="Undo"/>
+                          Click="Undo" />
                 <MenuItem Header="_Redo Move"
-                          Click="Redo"/>
+                          Click="Redo" />
             </MenuItem>
             <MenuItem Header="_Help">
                 <MenuItem Header="_About"
-                          Click="About"/>
+                          Click="About" />
             </MenuItem>
         </Menu>
-        
+
         <!--Row 2 ... Title Image -->
         <StackPanel Grid.Row="1">
-            <Image Height="80" Margin="10" Source=".\Resources\othello.png"/>
+            <Image Height="80"
+                   Margin="10"
+                   Source=".\Resources\othello.png" />
         </StackPanel>
 
         <!--Row3 ... Buttons to do what the menu offers-->
@@ -87,32 +115,32 @@
                     Grid.Row="2"
                     Grid.ColumnSpan="2"
                     Orientation="Horizontal">
-            <Button Background="DarkGray" 
+            <Button Background="DarkGray"
                     Padding="10"
                     Margin="10"
                     Grid.Row="2"
-                    Grid.Column="0" 
-                    Content="Restart"/>
+                    Grid.Column="0"
+                    Content="Restart" />
             <Button Background="DarkGray"
                     Padding="10"
                     Margin="10"
                     Grid.Row="2"
                     Grid.Column="1"
-                    Content="Undo"/>
+                    Content="Undo" />
             <Button Background="DarkGray"
                     Padding="10"
                     Margin="10"
                     Grid.Row="2"
                     Grid.Column="2"
-                    Content="Redo"/>
-            <Slider Minimum="20" 
+                    Content="Redo" />
+            <Slider Minimum="20"
                     Value="40"
-                Maximum="40" 
-                Padding="10"
-                Margin="10"
-                x:Name="Slider" 
-                MinWidth="50"
-                Grid.ColumnSpan="2"/>
+                    Maximum="40"
+                    Padding="10"
+                    Margin="10"
+                    x:Name="Slider"
+                    MinWidth="50"
+                    Grid.ColumnSpan="2" />
         </StackPanel>
 
         <!--Row 4 === the game grid-->
@@ -121,335 +149,422 @@
               Grid.Column="0"
               Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="{Binding ElementName=Slider, Path=Value}"/>
-                <ColumnDefinition Width="{Binding ElementName=Slider, Path=Value}"/>
-                <ColumnDefinition Width="{Binding ElementName=Slider, Path=Value}"/>
-                <ColumnDefinition Width="{Binding ElementName=Slider, Path=Value}"/>
-                <ColumnDefinition Width="{Binding ElementName=Slider, Path=Value}"/>
-                <ColumnDefinition Width="{Binding ElementName=Slider, Path=Value}"/>
-                <ColumnDefinition Width="{Binding ElementName=Slider, Path=Value}"/>
-                <ColumnDefinition Width="{Binding ElementName=Slider, Path=Value}"/>
-                <ColumnDefinition Width="{Binding ElementName=Slider, Path=Value}"/>
-                <ColumnDefinition Width="{Binding ElementName=Slider, Path=Value}"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="{Binding ElementName=Slider, Path=Value}" />
+                <ColumnDefinition Width="{Binding ElementName=Slider, Path=Value}" />
+                <ColumnDefinition Width="{Binding ElementName=Slider, Path=Value}" />
+                <ColumnDefinition Width="{Binding ElementName=Slider, Path=Value}" />
+                <ColumnDefinition Width="{Binding ElementName=Slider, Path=Value}" />
+                <ColumnDefinition Width="{Binding ElementName=Slider, Path=Value}" />
+                <ColumnDefinition Width="{Binding ElementName=Slider, Path=Value}" />
+                <ColumnDefinition Width="{Binding ElementName=Slider, Path=Value}" />
+                <ColumnDefinition Width="{Binding ElementName=Slider, Path=Value}" />
+                <ColumnDefinition Width="{Binding ElementName=Slider, Path=Value}" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="{Binding ElementName=Slider, Path=Value}"/>
-                <RowDefinition Height="{Binding ElementName=Slider, Path=Value}"/>
-                <RowDefinition Height="{Binding ElementName=Slider, Path=Value}"/>
-                <RowDefinition Height="{Binding ElementName=Slider, Path=Value}"/>
-                <RowDefinition Height="{Binding ElementName=Slider, Path=Value}"/>
-                <RowDefinition Height="{Binding ElementName=Slider, Path=Value}"/>
-                <RowDefinition Height="{Binding ElementName=Slider, Path=Value}"/>
-                <RowDefinition Height="{Binding ElementName=Slider, Path=Value}"/>
-                <RowDefinition Height="{Binding ElementName=Slider, Path=Value}"/>
-                <RowDefinition Height="{Binding ElementName=Slider, Path=Value}"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="{Binding ElementName=Slider, Path=Value}" />
+                <RowDefinition Height="{Binding ElementName=Slider, Path=Value}" />
+                <RowDefinition Height="{Binding ElementName=Slider, Path=Value}" />
+                <RowDefinition Height="{Binding ElementName=Slider, Path=Value}" />
+                <RowDefinition Height="{Binding ElementName=Slider, Path=Value}" />
+                <RowDefinition Height="{Binding ElementName=Slider, Path=Value}" />
+                <RowDefinition Height="{Binding ElementName=Slider, Path=Value}" />
+                <RowDefinition Height="{Binding ElementName=Slider, Path=Value}" />
+                <RowDefinition Height="{Binding ElementName=Slider, Path=Value}" />
+                <RowDefinition Height="{Binding ElementName=Slider, Path=Value}" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <!--Outline of the GameBoard-->
-            <Rectangle Fill="Black" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="10"/>
-            <Rectangle Fill="Black" Grid.Column="0" Grid.Row="0" Grid.RowSpan="10"/>
-            <Rectangle Fill="Black" Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="10"/>
-            <Rectangle Fill="Black" Grid.Column="9" Grid.Row="0" Grid.RowSpan="10"/>
-            <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource gameText}" Text="A" Foreground="White"/>
-            <TextBlock Grid.Row="0" Grid.Column="2" Style="{StaticResource gameText}" Text="B" Foreground="White"/>
-            <TextBlock Grid.Row="0" Grid.Column="3" Style="{StaticResource gameText}" Text="C" Foreground="White"/>
-            <TextBlock Grid.Row="0" Grid.Column="4" Style="{StaticResource gameText}" Text="D" Foreground="White"/>
-            <TextBlock Grid.Row="0" Grid.Column="5" Style="{StaticResource gameText}" Text="E" Foreground="White"/>
-            <TextBlock Grid.Row="0" Grid.Column="6" Style="{StaticResource gameText}" Text="F" Foreground="White"/>
-            <TextBlock Grid.Row="0" Grid.Column="7" Style="{StaticResource gameText}" Text="G" Foreground="White"/>
-            <TextBlock Grid.Row="0" Grid.Column="8" Style="{StaticResource gameText}" Text="H" Foreground="White"/>
-            <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource gameText}" Text="1" Foreground="White"/>
-            <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource gameText}" Text="2" Foreground="White"/>
-            <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource gameText}" Text="3" Foreground="White"/>
-            <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource gameText}" Text="4" Foreground="White"/>
-            <TextBlock Grid.Row="5" Grid.Column="0" Style="{StaticResource gameText}" Text="5" Foreground="White"/>
-            <TextBlock Grid.Row="6" Grid.Column="0" Style="{StaticResource gameText}" Text="6" Foreground="White"/>
-            <TextBlock Grid.Row="7" Grid.Column="0" Style="{StaticResource gameText}" Text="7" Foreground="White"/>
-            <TextBlock Grid.Row="8" Grid.Column="0" Style="{StaticResource gameText}" Text="8" Foreground="White"/>
+            <Rectangle Fill="Black"
+                       Grid.Column="0"
+                       Grid.Row="0"
+                       Grid.ColumnSpan="10" />
+            <Rectangle Fill="Black"
+                       Grid.Column="0"
+                       Grid.Row="0"
+                       Grid.RowSpan="10" />
+            <Rectangle Fill="Black"
+                       Grid.Column="0"
+                       Grid.Row="9"
+                       Grid.ColumnSpan="10" />
+            <Rectangle Fill="Black"
+                       Grid.Column="9"
+                       Grid.Row="0"
+                       Grid.RowSpan="10" />
+            <TextBlock Grid.Row="0"
+                       Grid.Column="1"
+                       Style="{StaticResource gameText}"
+                       Text="A"
+                       Foreground="White" />
+            <TextBlock Grid.Row="0"
+                       Grid.Column="2"
+                       Style="{StaticResource gameText}"
+                       Text="B"
+                       Foreground="White" />
+            <TextBlock Grid.Row="0"
+                       Grid.Column="3"
+                       Style="{StaticResource gameText}"
+                       Text="C"
+                       Foreground="White" />
+            <TextBlock Grid.Row="0"
+                       Grid.Column="4"
+                       Style="{StaticResource gameText}"
+                       Text="D"
+                       Foreground="White" />
+            <TextBlock Grid.Row="0"
+                       Grid.Column="5"
+                       Style="{StaticResource gameText}"
+                       Text="E"
+                       Foreground="White" />
+            <TextBlock Grid.Row="0"
+                       Grid.Column="6"
+                       Style="{StaticResource gameText}"
+                       Text="F"
+                       Foreground="White" />
+            <TextBlock Grid.Row="0"
+                       Grid.Column="7"
+                       Style="{StaticResource gameText}"
+                       Text="G"
+                       Foreground="White" />
+            <TextBlock Grid.Row="0"
+                       Grid.Column="8"
+                       Style="{StaticResource gameText}"
+                       Text="H"
+                       Foreground="White" />
+            <TextBlock Grid.Row="1"
+                       Grid.Column="0"
+                       Style="{StaticResource gameText}"
+                       Text="1"
+                       Foreground="White" />
+            <TextBlock Grid.Row="2"
+                       Grid.Column="0"
+                       Style="{StaticResource gameText}"
+                       Text="2"
+                       Foreground="White" />
+            <TextBlock Grid.Row="3"
+                       Grid.Column="0"
+                       Style="{StaticResource gameText}"
+                       Text="3"
+                       Foreground="White" />
+            <TextBlock Grid.Row="4"
+                       Grid.Column="0"
+                       Style="{StaticResource gameText}"
+                       Text="4"
+                       Foreground="White" />
+            <TextBlock Grid.Row="5"
+                       Grid.Column="0"
+                       Style="{StaticResource gameText}"
+                       Text="5"
+                       Foreground="White" />
+            <TextBlock Grid.Row="6"
+                       Grid.Column="0"
+                       Style="{StaticResource gameText}"
+                       Text="6"
+                       Foreground="White" />
+            <TextBlock Grid.Row="7"
+                       Grid.Column="0"
+                       Style="{StaticResource gameText}"
+                       Text="7"
+                       Foreground="White" />
+            <TextBlock Grid.Row="8"
+                       Grid.Column="0"
+                       Style="{StaticResource gameText}"
+                       Text="8"
+                       Foreground="White" />
 
             <!--Creating buttons/borders for the rest of the game-->
             <Button x:Name="A1"
-                Grid.Row="1" 
-                Grid.Column="1" 
-                Command="{Binding squareClick}"
-                CommandParameter="{Binding ElementName=A1, Path=Name}"
-                Background="{Binding square[1].squareColor}"
-                Style="{StaticResource gameSquares}">
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    
+                    Command="{Binding SquareClick}"
+                    CommandParameter="{Binding ElementName=A1, Path=Name}"
+                    Background="{Binding Board[1].SquareColor}"
+                    Style="{StaticResource gameSquares}">
+               
+               
                 <StackPanel>
-                    <Image Height="{Binding ElementName=Slider, Path=Value}" Source="{Binding square[1].squareImage}"/>
+                    <Image Height="{Binding ElementName=Slider, Path=Value}"
+                           Source="{Binding Board[1].SquareImage}" />
                 </StackPanel>
             </Button>
             <Button x:Name="A2"
-                Grid.Row="2" 
-                Grid.Column="1" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="A3"
-                Grid.Row="3" 
-                Grid.Column="1" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="A4"
-                Grid.Row="4" 
-                Grid.Column="1" 
-                Style="{StaticResource gameSquares}">
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    Style="{StaticResource gameSquares}">
             </Button>
             <Button x:Name="A5"
-                Grid.Row="5" 
-                Grid.Column="1" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="5"
+                    Grid.Column="1"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="A6"
-                Grid.Row="6" 
-                Grid.Column="1" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="6"
+                    Grid.Column="1"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="A7"
-                Grid.Row="7" 
-                Grid.Column="1" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="7"
+                    Grid.Column="1"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="A8"
-                Grid.Row="8" 
-                Grid.Column="1" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="8"
+                    Grid.Column="1"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="B1"
-                Grid.Row="1" 
-                Grid.Column="2" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="B2"
-                Grid.Row="2" 
-                Grid.Column="2" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="B3"
-                Grid.Row="3" 
-                Grid.Column="2" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="3"
+                    Grid.Column="2"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="B4"
-                Grid.Row="4" 
-                Grid.Column="2" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="4"
+                    Grid.Column="2"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="B5"
-                Grid.Row="5" 
-                Grid.Column="2" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="5"
+                    Grid.Column="2"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="B6"
-                Grid.Row="6" 
-                Grid.Column="2" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="6"
+                    Grid.Column="2"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="B7"
-                Grid.Row="7" 
-                Grid.Column="2" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="7"
+                    Grid.Column="2"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="B8"
-                Grid.Row="8" 
-                Grid.Column="2" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="8"
+                    Grid.Column="2"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="C1"
-                Grid.Row="1" 
-                Grid.Column="3" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="C2"
-                Grid.Row="2" 
-                Grid.Column="3" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="2"
+                    Grid.Column="3"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="C3"
-                Grid.Row="3" 
-                Grid.Column="3" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="3"
+                    Grid.Column="3"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="C4"
-                Grid.Row="4" 
-                Grid.Column="3" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="4"
+                    Grid.Column="3"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="C5"
-                Grid.Row="5" 
-                Grid.Column="3" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="5"
+                    Grid.Column="3"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="C6"
-                Grid.Row="6" 
-                Grid.Column="3" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="6"
+                    Grid.Column="3"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="C7"
-                Grid.Row="7" 
-                Grid.Column="3" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="7"
+                    Grid.Column="3"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="C8"
-                Grid.Row="8" 
-                Grid.Column="3" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="8"
+                    Grid.Column="3"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="D1"
-                Grid.Row="1" 
-                Grid.Column="4" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="1"
+                    Grid.Column="4"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="D2"
-                Grid.Row="2" 
-                Grid.Column="4" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="2"
+                    Grid.Column="4"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="D3"
-                Grid.Row="3" 
-                Grid.Column="4" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="3"
+                    Grid.Column="4"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="D4"
-                Grid.Row="4" 
-                Grid.Column="4" 
-                Style="{StaticResource gameSquares}">
+                    Grid.Row="4"
+                    Grid.Column="4"
+                    Style="{StaticResource gameSquares}">
                 <StackPanel>
-                    <Image Height="{Binding ElementName=Slider, Path=Value}" Source=".\resources\Empty.png"/>
+                    <Image Height="{Binding ElementName=Slider, Path=Value}"
+                           Source=".\resources\blackpip.png" />
                 </StackPanel>
             </Button>
             <Button x:Name="D5"
-                Grid.Row="5" 
-                Grid.Column="4" 
-                Style="{StaticResource gameSquares}">
+                    Grid.Row="5"
+                    Grid.Column="4"
+                    Style="{StaticResource gameSquares}">
                 <StackPanel>
-                    <Image Height="{Binding ElementName=Slider, Path=Value}" Source=".\Resources\whitepip.png"/>
+                    <Image Height="{Binding ElementName=Slider, Path=Value}"
+                           Source=".\Resources\whitepip.png" />
                 </StackPanel>
             </Button>
             <Button x:Name="D6"
-                Grid.Row="6" 
-                Grid.Column="4" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="6"
+                    Grid.Column="4"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="D7"
-                Grid.Row="7" 
-                Grid.Column="4" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="7"
+                    Grid.Column="4"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="D8"
-                Grid.Row="8" 
-                Grid.Column="4" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="8"
+                    Grid.Column="4"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="E1"
-                Grid.Row="1" 
-                Grid.Column="5" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="1"
+                    Grid.Column="5"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="E2"
-                Grid.Row="2" 
-                Grid.Column="5" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="2"
+                    Grid.Column="5"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="E3"
-                Grid.Row="3" 
-                Grid.Column="5" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="3"
+                    Grid.Column="5"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="E4"
-                Grid.Row="4" 
-                Grid.Column="5" 
-                Style="{StaticResource gameSquares}">
+                    Grid.Row="4"
+                    Grid.Column="5"
+                    Style="{StaticResource gameSquares}">
                 <StackPanel>
-                    <Image Height="{Binding ElementName=Slider, Path=Value}" Source=".\Resources\whitepip.png"/>
+                    <Image Height="{Binding ElementName=Slider, Path=Value}"
+                           Source=".\Resources\whitepip.png" />
                 </StackPanel>
             </Button>
             <Button x:Name="E5"
-                Grid.Row="5" 
-                Grid.Column="5" 
-                Style="{StaticResource gameSquares}">
+                    Grid.Row="5"
+                    Grid.Column="5"
+                    Style="{StaticResource gameSquares}">
                 <StackPanel>
-                    <Image Height="{Binding ElementName=Slider, Path=Value}" Source=".\Resources\blackpip.png"/>
+                    <Image Height="{Binding ElementName=Slider, Path=Value}"
+                           Source=".\Resources\blackpip.png" />
                 </StackPanel>
             </Button>
             <Button x:Name="E6"
-                Grid.Row="6" 
-                Grid.Column="5" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="6"
+                    Grid.Column="5"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="E7"
-                Grid.Row="7" 
-                Grid.Column="5" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="7"
+                    Grid.Column="5"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="E8"
-                Grid.Row="8" 
-                Grid.Column="5" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="8"
+                    Grid.Column="5"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="F1"
-                Grid.Row="1" 
-                Grid.Column="6" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="1"
+                    Grid.Column="6"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="F2"
-                Grid.Row="2" 
-                Grid.Column="6" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="2"
+                    Grid.Column="6"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="F3"
-                Grid.Row="3" 
-                Grid.Column="6" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="3"
+                    Grid.Column="6"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="F4"
-                Grid.Row="4" 
-                Grid.Column="6" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="4"
+                    Grid.Column="6"
+                    Command="{Binding SquareClick}"
+                    CommandParameter="{Binding ElementName=F4, Path=Name}"
+                    IsEnabled="{Binding Board[44].IsClickable}"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="F5"
-                Grid.Row="5" 
-                Grid.Column="6" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="5"
+                    Grid.Column="6"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="F6"
-                Grid.Row="6" 
-                Grid.Column="6" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="6"
+                    Grid.Column="6"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="F7"
-                Grid.Row="7" 
-                Grid.Column="6" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="7"
+                    Grid.Column="6"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="F8"
-                Grid.Row="8" 
-                Grid.Column="6" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="8"
+                    Grid.Column="6"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="G1"
-                Grid.Row="1" 
-                Grid.Column="7" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="1"
+                    Grid.Column="7"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="G2"
-                Grid.Row="2" 
-                Grid.Column="7" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="2"
+                    Grid.Column="7"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="G3"
-                Grid.Row="3" 
-                Grid.Column="7" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="3"
+                    Grid.Column="7"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="G4"
-                Grid.Row="4" 
-                Grid.Column="7" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="4"
+                    Grid.Column="7"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="G5"
-                Grid.Row="5" 
-                Grid.Column="7" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="5"
+                    Grid.Column="7"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="G6"
-                Grid.Row="6" 
-                Grid.Column="7" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="6"
+                    Grid.Column="7"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="G7"
-                Grid.Row="7" 
-                Grid.Column="7" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="7"
+                    Grid.Column="7"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="G8"
-                Grid.Row="8" 
-                Grid.Column="7" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="8"
+                    Grid.Column="7"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="H1"
-                Grid.Row="1" 
-                Grid.Column="8" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="1"
+                    Grid.Column="8"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="H2"
-                Grid.Row="2" 
-                Grid.Column="8" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="2"
+                    Grid.Column="8"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="H3"
-                Grid.Row="3" 
-                Grid.Column="8" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="3"
+                    Grid.Column="8"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="H4"
-                Grid.Row="4" 
-                Grid.Column="8" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="4"
+                    Grid.Column="8"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="H5"
-                Grid.Row="5" 
-                Grid.Column="8" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="5"
+                    Grid.Column="8"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="H6"
-                Grid.Row="6" 
-                Grid.Column="8" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="6"
+                    Grid.Column="8"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="H7"
-                Grid.Row="7" 
-                Grid.Column="8" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="7"
+                    Grid.Column="8"
+                    Style="{StaticResource gameSquares}" />
             <Button x:Name="H8"
-                Grid.Row="8" 
-                Grid.Column="8" 
-                Style="{StaticResource gameSquares}"/>
+                    Grid.Row="8"
+                    Grid.Column="8"
+                    Style="{StaticResource gameSquares}" />
 
         </Grid>
         <Grid Grid.Column="2"
@@ -457,41 +572,47 @@
               Grid.RowSpan="2"
               Background="white">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="3*"/>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="3*" />
             </Grid.RowDefinitions>
             <StackPanel Background="White">
                 <TextBlock FontSize="20">Current Score</TextBlock>
-                <TextBlock/>
+                <TextBlock />
                 <StackPanel Orientation="Horizontal">
                     <TextBlock> Black Count =</TextBlock>
-                    <TextBlock Text="{Binding BlackCount}"/>
+                    <TextBlock Text="{Binding BlackCount}" />
                 </StackPanel>
-                <TextBlock/>
+                <TextBlock />
                 <StackPanel Orientation="Horizontal">
                     <TextBlock> White Count =</TextBlock>
-                    <TextBlock Text="{Binding WhiteCount}"/>
+                    <TextBlock Text="{Binding WhiteCount}" />
                 </StackPanel>
             </StackPanel>
             <StackPanel Grid.Row="1">
                 <TextBlock HorizontalAlignment="Center"
-                       FontSize="20"> Current Moves</TextBlock>
+                           FontSize="20"> Current Moves</TextBlock>
                 <DataGrid ItemsSource="{Binding MoveList}"
-                      AutoGenerateColumns="False"
-                      HorizontalAlignment="Center"
-                      MinWidth="200"
-                      Grid.Row="1">
-                    <DataGridTextColumn Header="Player Color"
-                                    Binding="{Binding playerColor}"/>
-                    <DataGridTextColumn Header="Move"
-                                    Binding="{Binding playerMove}"/>
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          Foreground="Black"
+                          HorizontalAlignment="Center"
+                          MinWidth="200"
+                          Grid.Row="1">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Count"
+                                            Binding="{Binding MoveCount}" />
+                        <DataGridTextColumn Header="Player Color"
+                                            Binding="{Binding PlayerColor}" />
+                        <DataGridTextColumn Header="Move"
+                                            Binding="{Binding PlayerMove}" />
+                    </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>
         </Grid>
 
-       
+
     </Grid>
 </Window>
