@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace Othello.Shared.ViewModel
 {
-    public class OthelloViewModel : INotifyPropertyChanged
+    public class OthelloViewModel : INotifyPropertyChanged, ICommand
     {
         public OthelloViewModel()
         {
@@ -59,8 +59,8 @@ namespace Othello.Shared.ViewModel
                 board[i] = new Square();
             }
 
-            board[27].SquareValue = board[36].SquareValue = 1;
-            board[28].SquareValue = board[35].SquareValue = -1;
+            board[27].SquareValue = board[36].SquareValue = -1;
+            board[28].SquareValue = board[35].SquareValue = 1;
             Move turn = new Move(1,"White", "D4");
             MoveList.Add(turn);
             turn = new Move(2,"Black", "E4");

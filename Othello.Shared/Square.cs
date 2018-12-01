@@ -28,10 +28,23 @@ namespace Othello.Shared
             get { return squareValue; }
             set {
                 // any time the value changes, the image needs to be updated.
+                
                 OnPropertyChanged(nameof(SquareImage));
-                SetField(ref squareValue, value); }
+                SetField(ref squareValue, value);
+                updateImage() ; }
         }
 
+        public void updateImage()
+        {
+            if (SquareValue == -1)
+            { SquareImage = new BitmapImage(new Uri(@"Resources\blackpip.png", UriKind.Relative)); }
+
+            else if (SquareValue == 1)
+            { SquareImage = new BitmapImage(new Uri(@"Resources\whitepip.png", UriKind.Relative)); }
+
+            else
+            { SquareImage = new BitmapImage(new Uri(@"Resources\empty.png", UriKind.Relative)); }
+        }
         public string SquareColor
         {
             get { return squareColor; }
@@ -42,17 +55,7 @@ namespace Othello.Shared
         public BitmapImage SquareImage
         {
             get { return squareImage; }
-            set
-            {
-                if (SquareValue == -1)
-                { SquareImage = new BitmapImage(new Uri(@"Resources\blackpip.png", UriKind.Relative)); }
-
-                else if (SquareValue == 1)
-                { SquareImage = new BitmapImage(new Uri(@"Resources\whitepip.png", UriKind.Relative)); }
-
-                else
-                { SquareImage = new BitmapImage(new Uri(@"Resources\empty.png", UriKind.Relative)); }
-            }
+            set { SetField(ref squareImage, value); }
         }
 
         public bool IsClickable
@@ -60,11 +63,6 @@ namespace Othello.Shared
             get { return isClickable; }
             set { SetField(ref isClickable, value); }     
         } 
-            
-
-
-
-
 
 
         #region INotifyPropertyChanged Implementation
